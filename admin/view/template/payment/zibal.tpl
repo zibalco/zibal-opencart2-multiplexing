@@ -4,7 +4,7 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <button type="submit" form="form-payfast" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <button type="submit" form="form-zibal" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
         <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a>
       </div>
       <h1><?php echo $heading_title; ?></h1>
@@ -36,12 +36,12 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="zibal_merchant"><?php echo $entry_merchant_id; ?></label>
                 <div class="col-sm-10">
-                  <input name="zibal_merchant" type="text" placeholder="برای تست مقدار zibal را وارد کنید." value="<?php echo $zibal_merchant; ?>" class="form-control" style="direction:rtl;" />
+                  <input name="zibal_merchant" type="text" placeholder="<?php echo $placeholder_merchant; ?>" value="<?php echo $zibal_merchant; ?>" class="form-control" style="direction:rtl;" />
                   <?php if ($error_merchant) { ?><div class="text-danger"><?php echo $error_merchant; ?></div><?php } ?>
                 </div>
               </div>
 <div class="form-group">
-                <label class="col-sm-2 control-label" for="zibal_direct">زیبال دایرکت (درگاه مستقیم)</label>
+                <label class="col-sm-2 control-label" for="zibal_direct"><?php echo $entry_zibal_direct; ?></label>
                 <div class="col-sm-10">
                   <select name="zibal_direct" class="form-control">
                     <?php if ($zibal_direct=="yes") { ?>
@@ -60,6 +60,21 @@
                   <select name="zibal_order_status_id" class="form-control">
                     <?php foreach ($order_statuses as $order_status) { ?>
                     <?php if ($order_status['order_status_id'] == $zibal_order_status_id) { ?>
+                    <option value="<?php echo $order_status['order_status_id']; ?>" selected="selected"><?php echo $order_status['name']; ?></option>
+                    <?php } else { ?>
+                    <option value="<?php echo $order_status['order_status_id']; ?>"><?php echo $order_status['name']; ?></option>
+                    <?php } ?>
+                    <?php } ?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="zibal_failed_status_id"><span data-toggle="tooltip" title="<?php echo $help_failed_status; ?>"><?php echo $entry_failed_status; ?></span></label>
+                <div class="col-sm-10">
+                  <select name="zibal_failed_status_id" class="form-control">
+                    <option value="0"><?php echo $text_none; ?></option>
+                    <?php foreach ($order_statuses as $order_status) { ?>
+                    <?php if ($order_status['order_status_id'] == $zibal_failed_status_id) { ?>
                     <option value="<?php echo $order_status['order_status_id']; ?>" selected="selected"><?php echo $order_status['name']; ?></option>
                     <?php } else { ?>
                     <option value="<?php echo $order_status['order_status_id']; ?>"><?php echo $order_status['name']; ?></option>

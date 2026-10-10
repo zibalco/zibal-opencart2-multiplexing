@@ -26,32 +26,30 @@ class ControllerPaymentZibal extends Controller
 		$data['text_disabled'] = $this->language->get('text_disabled');
 		$data['text_yes'] = $this->language->get('text_yes');
 		$data['text_no'] = $this->language->get('text_no');
-		$data['text_authorization'] = $this->language->get('text_authorization');
-		$data['text_sale'] = $this->language->get('text_sale');
         $data['text_edit'] = $this->language->get( 'text_edit' );
 
 		$data['entry_order_status'] = $this->language->get('entry_order_status');
+		$data['entry_failed_status'] = $this->language->get('entry_failed_status');
+		$data['help_failed_status'] = $this->language->get('help_failed_status');
+		$data['text_none'] = $this->language->get('text_none');
 		$data['entry_status'] = $this->language->get('entry_status');
 		$data['entry_sort_order'] = $this->language->get('entry_sort_order');
 
 		$data['entry_merchant_id'] = $this->language->get('entry_merchant_id');
 		$data['entry_zibal_direct'] = $this->language->get('entry_zibal_direct');
+		$data['placeholder_merchant'] = $this->language->get('placeholder_merchant');
 
 		$data['entry_submerchant1'] = $this->language->get('entry_submerchant1');
 		$data['entry_submerchant2'] = $this->language->get('entry_submerchant2');
 		$data['entry_submerchant3'] = $this->language->get('entry_submerchant3');
 		$data['entry_submerchant4'] = $this->language->get('entry_submerchant4');
 		$data['entry_submerchant5'] = $this->language->get('entry_submerchant5');
-		$data['entry_submerchant6'] = $this->language->get('entry_submerchant6');
-		$data['entry_submerchant7'] = $this->language->get('entry_submerchant7');
-		$data['entry_submerchant8'] = $this->language->get('entry_submerchant8');
 
 
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
 
         $data['tab_general'] = $this->language->get('tab_general');
-      	$data['tab_additional'] = $this->language->get('tab_additional');
 
 		$data['breadcrumbs'] = array();
 
@@ -100,6 +98,12 @@ class ControllerPaymentZibal extends Controller
 			$data['zibal_order_status_id'] = $this->request->post['zibal_order_status_id'];
 		} else {
 			$data['zibal_order_status_id'] = $this->config->get('zibal_order_status_id');
+		}
+
+		if (isset($this->request->post['zibal_failed_status_id'])) {
+			$data['zibal_failed_status_id'] = $this->request->post['zibal_failed_status_id'];
+		} else {
+			$data['zibal_failed_status_id'] = $this->config->get('zibal_failed_status_id');
 		}
 
 		$this->load->model('localisation/order_status');
