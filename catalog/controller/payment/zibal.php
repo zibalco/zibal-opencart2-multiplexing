@@ -1,6 +1,10 @@
 <?php
 
 	class ControllerPaymentZibal extends Controller {
+		// Sent in the User-Agent so Zibal can tell which plugin and version made the request.
+		const PLUGIN_NAME = 'Zibal-OpenCart2-Multiplexing';
+		const PLUGIN_VERSION = '1.0.0';
+
 		// Raw result of the last call to Zibal, kept for the order history notes.
 		private $last_response = array('http_code' => 0, 'error' => '', 'body' => '');
 
@@ -315,6 +319,7 @@
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, "https://gateway.zibal.ir/v1/".$url);
 			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json; charset=utf-8'));
+			curl_setopt($ch, CURLOPT_USERAGENT, $this->user_agent());
 			curl_setopt($ch, CURLOPT_POST, 1);
 			if ($data) {
 				curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
@@ -335,6 +340,11 @@
 			curl_close($ch);
 			$result = !empty($result) ? json_decode($result) : false;
 			return is_object($result) ? $result : false;
+		}
+
+		private function user_agent() {
+			return self::PLUGIN_NAME . '/' . self::PLUGIN_VERSION
+				. ' (OpenCart/' . (defined('VERSION') ? VERSION : 'unknown') . '; PHP/' . PHP_VERSION . ')';
 		}
 
 		// Adds a note to the order history without changing the order status or emailing the customer.
